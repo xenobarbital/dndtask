@@ -19,13 +19,21 @@ class List extends Component {
         </div>
         <div style={styles.body}>
           <ol className={'list-group'}>
-            {this.state.stuff.map((el, i) => (
+            {[
+              ...this.state.stuff.map((el, i) => (
+                <ListItem
+                  key={i}
+                  text={el}
+                  edit={false}
+                />
+              )),
               <ListItem
-                id={i}
-                key={i}
-                text={el}
+                last
+                edit
+                key={'last'}
+                text={''}
               />
-            ))}
+            ]}
           </ol>
         </div>
       </div>
