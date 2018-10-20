@@ -23,7 +23,7 @@ class List extends Component {
           </h3>
         </div>
         <div style={styles.body}>
-          <ol style={styles.list} className={'list-group'}>
+          <ol className={'list-group'}>
             {[
               ...this.state.stuff.map(el => (
                 <ListItem
@@ -63,9 +63,9 @@ const styles = {
   numbered: {
     display: 'list-item'
   },
-  list: {
-    overflow: 'scroll'
-  }
+  // list: {
+  //   overflow: 'scroll'
+  // }
 };
 
 export default List;
