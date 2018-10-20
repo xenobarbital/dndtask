@@ -18,41 +18,25 @@ class ListItem extends Component {
     this.setState({edit: true});
   }
 
-  handleForm(e) {
-    e.preventDefault();
-    if (this.props.last && this.state.text) {
-      this.props.addItem({
-        text: this.state.text,
-        id: uuidv1()
-      });
+  handleItem(last, text, id) {
+    if (last && text) {
+      this.props.addItem({text, id});
       this.setState({text: ''});
-    } else if (!this.props.last && this.state.text) {
-      this.props.editItem({
-        text: this.state.text,
-        id: uuidv1()
-      }, this.props.id);
+    } else if (!last && text) {
+      this.props.editItem({text, id}, this.props.id);
       this.setState({edit: false});
-    } else if (!this.props.last && !this.state.text) {
+    } else if (!last && !text) {
       this.props.deleteItem(this.props.id);
     }
   }
 
+  handleForm(e) {
+    e.preventDefault();
+    this.handleItem(this.props.last, this.state.text, uuidv1());
+  }
+
   handleBlur() {
-    if (this.props.last && this.state.text) {
-      this.props.addItem({
-        text: this.state.text,
-        id: uuidv1()
-      });
-      this.setState({text: ''});
-    } else if (!this.props.last && this.state.text) {
-      this.props.editItem({
-        text: this.state.text,
-        id: uuidv1()
-      }, this.props.id);
-      this.setState({edit: false});
-    } else if (!this.props.last && !this.state.text) {
-      this.props.deleteItem(this.props.id);
-    }
+    this.handleItem(this.props.last, this.state.text, uuidv1());
   }
 
   renderForm() {
@@ -73,7 +57,6 @@ class ListItem extends Component {
   }
 
   render() {
-    if (this.props.last) console.log('Im the last', this.state.last);
     return (
       <li
         onClick={() => this.handleClick()}
