@@ -35,4 +35,20 @@ export default class ActionCreators {
       id
     };
   }
+
+  static editCon(id, con) {
+    return {
+      type: EDIT_CON,
+      id,
+      con
+    };
+  }
+
+  static editPro(id, pro) {
+    return {
+      type: EDIT_PRO,
+      id,
+      pro
+    };
+  }
 }
