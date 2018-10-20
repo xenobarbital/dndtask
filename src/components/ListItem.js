@@ -33,7 +33,7 @@ class ListItem extends Component {
     return (
       <form onSubmit={(e) => this.handleForm(e)}>
         <input
-          className={'form-control'}
+          className={'form-control form-control-sm'}
           type={'text'}
           value={text}
           onChange={(e) => this.handleChange(e)}
