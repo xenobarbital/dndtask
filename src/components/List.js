@@ -3,7 +3,12 @@ import ListItem from './ListItem';
 
 class List extends Component {
   state = {
-    stuff: ['burp', 'fart', 'turd', 'blaarggag']
+    // stuff: ['burp', 'fart', 'turd', 'blaarggag']
+    stuff: [
+      {text: 'foo', id: 'kjhgkjhg'},
+      {text: 'bar', id: 'gytu5rtfj'},
+      {text: 'foobar', id: 'ggyufjgoooj'}
+    ]
   }
 
   render() {
@@ -18,12 +23,12 @@ class List extends Component {
           </h3>
         </div>
         <div style={styles.body}>
-          <ol className={'list-group'}>
+          <ol style={styles.list} className={'list-group'}>
             {[
-              ...this.state.stuff.map((el, i) => (
+              ...this.state.stuff.map(el => (
                 <ListItem
-                  key={i}
-                  text={el}
+                  key={el.id}
+                  text={el.text}
                   edit={false}
                 />
               )),
@@ -57,6 +62,9 @@ const styles = {
   },
   numbered: {
     display: 'list-item'
+  },
+  list: {
+    overflow: 'scroll'
   }
 };
 
