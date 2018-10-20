@@ -3,11 +3,10 @@ import ListItem from './ListItem';
 
 class List extends Component {
   state = {
-    // stuff: ['burp', 'fart', 'turd', 'blaarggag']
     stuff: [
       {text: 'foo', id: 'kjhgkjhg'},
       {text: 'bar', id: 'gytu5rtfj'},
-      {text: 'foobar', id: 'ggyufjgoooj'}
+      {text: 'foobar', id: 'ggyufjgoooj'},
     ]
   }
 
@@ -22,25 +21,23 @@ class List extends Component {
             {this.props.pros ? 'Pros' : 'Cons'}
           </h3>
         </div>
-        <div style={styles.body}>
-          <ol className={'list-group'}>
-            {[
-              ...this.state.stuff.map(el => (
-                <ListItem
-                  key={el.id}
-                  text={el.text}
-                  edit={false}
-                />
-              )),
+        <ol style={styles.body}>
+          {[
+            ...this.state.stuff.map(el => (
               <ListItem
-                last
-                edit
-                key={'last'}
-                text={''}
+                key={el.id}
+                text={el.text}
+                edit={false}
               />
-            ]}
-          </ol>
-        </div>
+            )),
+            <ListItem
+              last
+              edit
+              key={'last'}
+              text={''}
+            />
+          ]}
+        </ol>
       </div>
     );
   }
@@ -50,22 +47,19 @@ const styles = {
   bordered: {
     borderStyle: 'dotted',
     borderColor: 'gray',
-    borderWidth: '1px'
+    borderWidth: '1px',
+    height: '480px'
   },
   header: {
-    flex: 1,
     backgroundColor: '#F0F8FF'
   },
   body: {
-    flex: 6,
-    paddingLeft: 10
+    height: '90%',
+    overflow: 'scroll'
   },
   numbered: {
     display: 'list-item'
   },
-  // list: {
-  //   overflow: 'scroll'
-  // }
 };
 
 export default List;
