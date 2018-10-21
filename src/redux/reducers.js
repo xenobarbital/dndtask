@@ -15,7 +15,7 @@ const cons = (state = [], action) => {
     case DELETE_CON:
       return state.filter(el => el.id !== action.id);
     case EDIT_CON:
-      return state.map(el => el.id === action.id ? action.con : el);
+      return state.map(el => el.id === action.con.id ? action.con : el);
     default:
       return state;
   }
@@ -27,8 +27,9 @@ const pros = (state = [], action) => {
       return [...state, action.pro];
     case DELETE_PRO:
       return state.filter(el => el.id !== action.id);
-    case EDIT_PRO:
-      return state.map(el => el.id === action.id ? action.pro : el);
+    case EDIT_PRO: {
+      return state.map(el => el.id === action.pro.id ? action.pro : el);
+    }
     default:
       return state;
   }
