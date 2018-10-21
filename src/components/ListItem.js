@@ -11,6 +11,13 @@ const spec = {
       id: props.id
     };
     return item;
+  },
+
+  canDrag(props) {
+    if (props.last) {
+      return false;
+    }
+    return true;
   }
 };
 
