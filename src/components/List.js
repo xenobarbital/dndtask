@@ -36,7 +36,7 @@ class ConnectedList extends Component {
     } = this.props;
     let list = pros ? prosList : consList;
     return (
-      <div style={styles.bordered} className={'col bg-light d-flex flex-column'} >
+      <div style={styles.bordered} className={'col bg-light d-flex flex-column'}>
         <div
           style={styles.header}
           className={'d-flex align-items-center justify-content-center'}
