@@ -1,5 +1,26 @@
 import React, { Component } from 'react';
+import { DragSource } from 'react-dnd';
 import uuidv1 from 'uuid/v1';
+import Types from '../constants/dndTypes';
+
+const type = Types.ITEM;
+const spec = {
+  beginDrag(props) {
+    const item = {
+      text: props.text,
+      id: props.id
+    };
+    return item;
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 class ListItem extends Component {
   constructor(props) {
@@ -36,6 +57,7 @@ class ListItem extends Component {
   }
 
   handleBlur() {
+    console.log('OLOLO BLURRED!');
     this.handleItem(this.props.last, this.state.text, uuidv1());
   }
 
@@ -51,13 +73,15 @@ class ListItem extends Component {
           onChange={(e) => this.handleChange(e)}
           onBlur={() => this.handleBlur()}
           autoFocus={last ? false : true}
+          onFocus={() => console.log('OLOLO FOCUSED!')} // Delete this!
         />
       </form>
     );
   }
 
   render() {
-    return (
+    const {isDragging, connectDragSource} = this.props;
+    return connectDragSource(
       <li
         onClick={() => this.handleClick()}
         className={'list-group-item list-group-item-dark'}
@@ -75,4 +99,4 @@ const styles = {
   }
 };
 
-export default ListItem;
+export default DragSource(type, spec, collect)(ListItem);
