@@ -1,31 +1,51 @@
 import React, { Component } from 'react';
-import { DragSource } from 'react-dnd';
+import { DragSource, DropTarget } from 'react-dnd';
 import uuidv1 from 'uuid/v1';
 import Types from '../constants/dndTypes';
+import flow from 'lodash/flow';
 
 const type = Types.ITEM;
-const spec = {
+const sourceSpec = {
   beginDrag(props) {
-    const item = {
+    return {
       text: props.text,
       id: props.id
     };
-    return item;
+  },
+
+  endDrag(props, monitor) {
+    if (monitor.didDrop()) {
+      console.log('Dropped!');
+    } else {
+      console.log('Sadface :(');
+    }
   },
 
   canDrag(props) {
-    if (props.last) {
-      return false;
-    }
-    return true;
+    return props.last ? false : true;
   }
 };
 
-function collect(connect, monitor) {
+const targetSpec = {
+  drop(props) {
+    return {
+      text: props.text,
+      id: props.id
+    };
+  }
+};
+
+function sourceCollect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging()
+  };
+}
+
+function targetCollect(connect) {
+  return {
+    connectDropTarget: connect.dropTarget()
   };
 }
 
@@ -64,7 +84,6 @@ class ListItem extends Component {
   }
 
   handleBlur() {
-    console.log('OLOLO BLURRED!');
     this.handleItem(this.props.last, this.state.text, uuidv1());
   }
 
@@ -80,22 +99,26 @@ class ListItem extends Component {
           onChange={(e) => this.handleChange(e)}
           onBlur={() => this.handleBlur()}
           autoFocus={last ? false : true}
-          onFocus={() => console.log('OLOLO FOCUSED!')} // Delete this!
+          onFocus={() => null} // Delete this!
         />
       </form>
     );
   }
 
   render() {
-    const {isDragging, connectDragSource} = this.props;
-    return connectDragSource(
-      <li
-        onClick={() => this.handleClick()}
-        className={'list-group-item list-group-item-dark'}
-        style={styles.numbered}
-      >
-        {!this.state.edit ? this.state.text : this.renderForm()}
-      </li>
+    const {isDragging, connectDragSource, connectDropTarget} = this.props;
+    return (
+      connectDragSource &&
+      connectDropTarget &&
+      connectDragSource(
+        <li
+          onClick={() => this.handleClick()}
+          className={'list-group-item list-group-item-dark'}
+          style={styles.numbered}
+        >
+          {!this.state.edit ? this.state.text : this.renderForm()}
+        </li>
+      )
     );
   }
 }
@@ -106,4 +129,7 @@ const styles = {
   }
 };
 
-export default DragSource(type, spec, collect)(ListItem);
+export default flow(
+  DragSource(type, sourceSpec, sourceCollect),
+  DropTarget(type, targetSpec, targetCollect)
+)(ListItem);

@@ -5,8 +5,7 @@ import ActionCreators from '../redux/actionCreators';
 
 const mapStateToProps = state => {
   return {
-    prosList: state.pros,
-    consList: state.cons
+    state
   };
 };
 
@@ -25,8 +24,7 @@ class ConnectedList extends Component {
   render() {
     const {
       pros,
-      prosList,
-      consList,
+      state,
       addCon,
       addPro,
       deleteCon,
@@ -34,7 +32,7 @@ class ConnectedList extends Component {
       editCon,
       editPro
     } = this.props;
-    let list = pros ? prosList : consList;
+    let list = pros ? state.pros : state.cons;
     return (
       <div style={styles.bordered} className={'col bg-light d-flex flex-column'}>
         <div
@@ -55,6 +53,7 @@ class ConnectedList extends Component {
                 edit={false}
                 deleteItem={pros ? deletePro : deleteCon}
                 editItem={pros ? editPro : editCon}
+                state={state}
               />
             )),
             <ListItem
