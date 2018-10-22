@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch => {
     addPro: pro => dispatch(ActionCreators.addPro(pro)),
     deleteCon: id => dispatch(ActionCreators.deleteCon(id)),
     deletePro: id => dispatch(ActionCreators.deletePro(id)),
-    editCon: (id, con) => dispatch(ActionCreators.editCon(id, con)),
-    editPro: (id, pro) => dispatch(ActionCreators.editPro(id, pro))
+    editCon: (id, text) => dispatch(ActionCreators.editCon(id, text)),
+    editPro: (id, text) => dispatch(ActionCreators.editPro(id, text))
   };
 };
 
@@ -32,6 +32,7 @@ class ConnectedList extends Component {
       editCon,
       editPro
     } = this.props;
+    console.log('State', state);
     let list = pros ? state.pros : state.cons;
     return (
       <div style={styles.bordered} className={'col bg-light d-flex flex-column'}>

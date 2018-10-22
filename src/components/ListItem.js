@@ -73,7 +73,7 @@ class ListItem extends Component {
       this.props.addItem({text, id});
       this.setState({text: ''});
     } else if (!last && text) {
-      this.props.editItem({text, id}, this.props.id);
+      this.props.editItem(this.props.id, text);
       this.setState({edit: false});
     } else if (!last && !text) {
       this.props.deleteItem(this.props.id);

@@ -36,19 +36,19 @@ export default class ActionCreators {
     };
   }
 
-  static editCon(id, con) {
+  static editCon(id, text) {
     return {
       type: EDIT_CON,
       id,
-      con
+      text
     };
   }
 
-  static editPro(id, pro) {
+  static editPro(id, text) {
     return {
       type: EDIT_PRO,
       id,
-      pro
+      text
     };
   }
 }
