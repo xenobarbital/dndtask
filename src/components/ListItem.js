@@ -45,9 +45,10 @@ function sourceCollect(connect, monitor) {
   };
 }
 
-function targetCollect(connect) {
+function targetCollect(connect, monitor) {
   return {
-    connectDropTarget: connect.dropTarget()
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
   };
 }
 
@@ -108,14 +109,20 @@ class ListItem extends Component {
   }
 
   render() {
-    const {isDragging, connectDragSource, connectDropTarget} = this.props;
+    const {
+      isDragging,
+      isOver,
+      connectDragSource,
+      connectDropTarget
+    } = this.props;
+    let light = isOver || isDragging ? 'list-group-item-light' : 'list-group-item-dark';
     return (
       connectDragSource &&
       connectDropTarget &&
       connectDragSource(
         <li
           onClick={() => this.handleClick()}
-          className={'list-group-item list-group-item-dark'}
+          className={`list-group-item ${light}`}
           style={styles.numbered}
         >
           {!this.state.edit ? this.state.text : this.renderForm()}
