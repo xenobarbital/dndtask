@@ -15,11 +15,11 @@ const sourceSpec = {
   },
 
   endDrag(props, monitor) {
-    if (monitor.didDrop()) {
-      console.log('Dropped!', monitor.getDropResult());
-    } else {
+    if (!monitor.didDrop()) {
       console.log('Not dropped', monitor.getDropResult());
+      return;
     }
+    console.log('Dropped!', monitor.getDropResult());
   },
 
   canDrag(props) {
@@ -116,19 +116,15 @@ class ListItem extends Component {
       connectDropTarget
     } = this.props;
     let light = isOver || isDragging ? 'list-group-item-light' : 'list-group-item-dark';
-    return (
-      connectDragSource &&
-      connectDropTarget &&
-      connectDragSource(
-        <li
-          onClick={() => this.handleClick()}
-          className={`list-group-item ${light}`}
-          style={styles.numbered}
-        >
-          {!this.state.edit ? this.state.text : this.renderForm()}
-        </li>
-      )
-    );
+    return connectDropTarget(connectDragSource(
+      <li
+        onClick={() => this.handleClick()}
+        className={`list-group-item ${light}`}
+        style={styles.numbered}
+      >
+        {!this.state.edit ? this.state.text : this.renderForm()}
+      </li>
+    ));
   }
 }
 
