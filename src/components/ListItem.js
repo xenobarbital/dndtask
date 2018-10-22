@@ -25,12 +25,12 @@ const sourceSpec = {
       id: props.id
     };
     let dropResult = monitor.getDropResult();
+    props.deleteItem(props.id);
     if (dropResult.pro) {
       props.dropToPros(dropResult.id, item);
     } else {
       props.dropToCons(dropResult.id, item);
     }
-    props.deleteItem(props.id);
   },
 
   canDrag(props) {
