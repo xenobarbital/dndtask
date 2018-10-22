@@ -61,9 +61,12 @@ class ConnectedList extends Component {
                 dropToPros={dropToPros}
                 dropToCons={dropToCons}
                 state={state}
+                addCon={addCon}
+                addPro={addPro}
               />
             )),
             <ListItem
+              pro={pros}
               last
               edit
               key={'last'}

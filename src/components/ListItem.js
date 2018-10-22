@@ -11,7 +11,6 @@ const sourceSpec = {
       text: props.text,
       id: props.id
     };
-    console.log(item);
     return item;
   },
 
@@ -19,17 +18,21 @@ const sourceSpec = {
     if (!monitor.didDrop()) {
       return;
     }
-    console.log(monitor.getDropResult());
     let item = {
       text: props.text,
       id: props.id
     };
     let dropResult = monitor.getDropResult();
+    console.log(dropResult.last);
     props.deleteItem(props.id);
-    if (dropResult.pro) {
+    if (dropResult.pro && !dropResult.last) {
       props.dropToPros(dropResult.id, item);
-    } else {
+    } else if (dropResult.pro && dropResult.last) {
+      props.addPro(item);
+    } else if (!dropResult.pro && !dropResult.last) {
       props.dropToCons(dropResult.id, item);
+    } else if (!dropResult.pro && dropResult.last) {
+      props.addCon(item);
     }
   },
 
@@ -42,7 +45,8 @@ const targetSpec = {
   drop(props) {
     return {
       id: props.id,
-      pro: props.pro
+      pro: props.pro,
+      last: props.last
     };
   }
 };
