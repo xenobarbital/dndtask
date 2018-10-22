@@ -7,16 +7,19 @@ import flow from 'lodash/flow';
 const type = Types.ITEM;
 const sourceSpec = {
   beginDrag(props) {
-    return {
+    let item = {
       text: props.text,
       id: props.id
     };
+    console.log(item);
+    return item;
   },
 
   endDrag(props, monitor) {
     if (!monitor.didDrop()) {
       return;
     }
+    console.log(monitor.getDropResult());
     props.deleteItem(props.id);
   },
 
