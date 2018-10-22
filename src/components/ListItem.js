@@ -7,7 +7,6 @@ import flow from 'lodash/flow';
 const type = Types.ITEM;
 const sourceSpec = {
   beginDrag(props) {
-    console.log(props.text, props.id);
     return {
       text: props.text,
       id: props.id
@@ -16,10 +15,9 @@ const sourceSpec = {
 
   endDrag(props, monitor) {
     if (!monitor.didDrop()) {
-      console.log('Not dropped', monitor.getDropResult());
       return;
     }
-    console.log('Dropped!', monitor.getDropResult());
+    props.deleteItem(props.id);
   },
 
   canDrag(props) {
@@ -29,7 +27,6 @@ const sourceSpec = {
 
 const targetSpec = {
   drop(props) {
-    console.log('target aquired!');
     return {
       text: props.text,
       id: props.id

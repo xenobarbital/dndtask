@@ -32,7 +32,6 @@ class ConnectedList extends Component {
       editCon,
       editPro
     } = this.props;
-    console.log('State', state);
     let list = pros ? state.pros : state.cons;
     return (
       <div style={styles.bordered} className={'col bg-light d-flex flex-column'}>
