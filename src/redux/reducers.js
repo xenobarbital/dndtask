@@ -25,7 +25,7 @@ const cons = (state = [], action) => {
       let index = state.findIndex(el => el.id === action.id);
       let copyState = [...state];
       if (index >= 0) {
-        copyState.splice(index, 0, action.item);
+        copyState.splice(index + 1, 0, action.item);
       }
       return copyState;
     }
@@ -50,7 +50,7 @@ const pros = (state = [], action) => {
       let index = state.findIndex(el => el.id === action.id);
       let copyState = [...state];
       if (index >= 0) {
-        copyState.splice(index, 0, action.item);
+        copyState.splice(index + 1, 0, action.item);
       }
       return copyState;
     }
