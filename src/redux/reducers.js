@@ -5,7 +5,9 @@ import {
   DELETE_CON,
   DELETE_PRO,
   EDIT_CON,
-  EDIT_PRO
+  EDIT_PRO,
+  DROP_TO_CONS,
+  DROP_TO_PROS
 } from './actionTypes';
 
 const cons = (state = [], action) => {
@@ -19,6 +21,14 @@ const cons = (state = [], action) => {
         text: action.text,
         id: action.id
       } : el);
+    case DROP_TO_CONS: {
+      let index = state.findIndex(el => el.id === action.id);
+      let copyState = [...state];
+      if (index >= 0) {
+        copyState.splice(index, 0, action.item);
+      }
+      return copyState;
+    }
     default:
       return state;
   }
@@ -35,6 +45,14 @@ const pros = (state = [], action) => {
         text: action.text,
         id: action.id
       } : el);
+    }
+    case DROP_TO_PROS: {
+      let index = state.findIndex(el => el.id === action.id);
+      let copyState = [...state];
+      if (index >= 0) {
+        copyState.splice(index, 0, action.item);
+      }
+      return copyState;
     }
     default:
       return state;

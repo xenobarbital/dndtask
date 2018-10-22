@@ -20,6 +20,16 @@ const sourceSpec = {
       return;
     }
     console.log(monitor.getDropResult());
+    let item = {
+      text: props.text,
+      id: props.id
+    };
+    let dropResult = monitor.getDropResult();
+    if (dropResult.pro) {
+      props.dropToPros(dropResult.id, item);
+    } else {
+      props.dropToCons(dropResult.id, item);
+    }
     props.deleteItem(props.id);
   },
 
@@ -31,8 +41,8 @@ const sourceSpec = {
 const targetSpec = {
   drop(props) {
     return {
-      text: props.text,
-      id: props.id
+      id: props.id,
+      pro: props.pro
     };
   }
 };

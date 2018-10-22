@@ -16,7 +16,9 @@ const mapDispatchToProps = dispatch => {
     deleteCon: id => dispatch(ActionCreators.deleteCon(id)),
     deletePro: id => dispatch(ActionCreators.deletePro(id)),
     editCon: (id, text) => dispatch(ActionCreators.editCon(id, text)),
-    editPro: (id, text) => dispatch(ActionCreators.editPro(id, text))
+    editPro: (id, text) => dispatch(ActionCreators.editPro(id, text)),
+    dropToCons: (id, item) => dispatch(ActionCreators.dropToCons(id, item)),
+    dropToPros: (id, item) => dispatch(ActionCreators.dropToPros(id, item)),
   };
 };
 
@@ -30,7 +32,9 @@ class ConnectedList extends Component {
       deleteCon,
       deletePro,
       editCon,
-      editPro
+      editPro,
+      dropToCons,
+      dropToPros
     } = this.props;
     let list = pros ? state.pros : state.cons;
     return (
@@ -47,12 +51,15 @@ class ConnectedList extends Component {
           {[
             ...list.map(el => (
               <ListItem
+                pro={pros}
                 key={el.id}
                 id={el.id}
                 text={el.text}
                 edit={false}
                 deleteItem={pros ? deletePro : deleteCon}
                 editItem={pros ? editPro : editCon}
+                dropToPros={dropToPros}
+                dropToCons={dropToCons}
                 state={state}
               />
             )),

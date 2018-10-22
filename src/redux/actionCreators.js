@@ -4,7 +4,9 @@ import {
   DELETE_CON,
   DELETE_PRO,
   EDIT_CON,
-  EDIT_PRO
+  EDIT_PRO,
+  DROP_TO_CONS,
+  DROP_TO_PROS
 } from './actionTypes';
 
 export default class ActionCreators {
@@ -49,6 +51,22 @@ export default class ActionCreators {
       type: EDIT_PRO,
       id,
       text
+    };
+  }
+
+  static dropToCons(id, item) {
+    return {
+      type: DROP_TO_CONS,
+      id,
+      item
+    };
+  }
+
+  static dropToPros(id, item) {
+    return {
+      type: DROP_TO_PROS,
+      id,
+      item
     };
   }
 }
